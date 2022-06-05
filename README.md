@@ -20,6 +20,7 @@
 9. https://github.com/EighteenZi/rocksdb_wiki/blob/master/Creating-and-Ingesting-SST-files.md
 10. https://github.com/microsoft/eevm
 11. https://ethereum.org/en/developers/docs/evm/
+12. https://eax.me/rocksdb/
 
 # ToDo:
 - [ ] Pseudonymous
