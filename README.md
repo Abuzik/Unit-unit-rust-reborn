@@ -21,6 +21,7 @@
 10. https://github.com/microsoft/eevm
 11. https://ethereum.org/en/developers/docs/evm/
 12. https://eax.me/rocksdb/
+13. https://github.com/stbrumme/hash-library
 
 # ToDo:
 - [ ] Pseudonymous
