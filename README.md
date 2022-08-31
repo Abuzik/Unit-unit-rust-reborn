@@ -1,3 +1,7 @@
+# Useful links
+https://github.com/ton-blockchain/ton/tree/master/tddb/td/db
+https://github.com/ton-blockchain/ton/tree/master/crypto/vm
+
 # Requirements
 
 > Memory: 2GB (due RocksDB)
