@@ -1,0 +1,3 @@
+/Users/kirillzhukov/CLionProjects/vm_test_implementation/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/kirillzhukov/CLionProjects/vm_test_implementation/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/kirillzhukov/CLionProjects/vm_test_implementation/cmake-build-debug/CMakeFiles/vm_test_implementation.dir

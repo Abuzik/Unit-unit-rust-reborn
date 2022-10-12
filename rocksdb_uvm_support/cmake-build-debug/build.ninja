@@ -79,8 +79,8 @@ build CMakeFiles/rocksdb_uvm_support.dir/main.cpp.o: CXX_COMPILER__rocksdb_uvm_s
   OBJECT_DIR = CMakeFiles/rocksdb_uvm_support.dir
   OBJECT_FILE_DIR = CMakeFiles/rocksdb_uvm_support.dir
 
-build CMakeFiles/rocksdb_uvm_support.dir/DB/Blockchain_db.cpp.o: CXX_COMPILER__rocksdb_uvm_support_Debug /Users/kirillzhukov/CLionProjects/rocksdb_uvm_support/DB/Blockchain_db.cpp || cmake_object_order_depends_target_rocksdb_uvm_support
-  DEP_FILE = CMakeFiles/rocksdb_uvm_support.dir/DB/Blockchain_db.cpp.o.d
+build CMakeFiles/rocksdb_uvm_support.dir/DB/DB.cpp.o: CXX_COMPILER__rocksdb_uvm_support_Debug /Users/kirillzhukov/CLionProjects/rocksdb_uvm_support/DB/DB.cpp || cmake_object_order_depends_target_rocksdb_uvm_support
+  DEP_FILE = CMakeFiles/rocksdb_uvm_support.dir/DB/DB.cpp.o.d
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.0 -std=gnu++17
   INCLUDES = -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/rocksdb_uvm_support.dir
@@ -94,7 +94,7 @@ build CMakeFiles/rocksdb_uvm_support.dir/DB/Blockchain_db.cpp.o: CXX_COMPILER__r
 #############################################
 # Link the executable rocksdb_uvm_support
 
-build rocksdb_uvm_support: CXX_EXECUTABLE_LINKER__rocksdb_uvm_support_Debug CMakeFiles/rocksdb_uvm_support.dir/main.cpp.o CMakeFiles/rocksdb_uvm_support.dir/DB/Blockchain_db.cpp.o | /opt/homebrew/lib/librocksdb.a /opt/homebrew/lib/libgflags.2.2.2.dylib /opt/homebrew/lib/libsnappy.1.1.9.dylib /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk/usr/lib/libz.tbd /Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/usr/lib/libbz2.tbd /opt/homebrew/lib/liblz4.dylib /opt/homebrew/lib/libzstd.dylib
+build rocksdb_uvm_support: CXX_EXECUTABLE_LINKER__rocksdb_uvm_support_Debug CMakeFiles/rocksdb_uvm_support.dir/main.cpp.o CMakeFiles/rocksdb_uvm_support.dir/DB/DB.cpp.o | /opt/homebrew/lib/librocksdb.a /opt/homebrew/lib/libgflags.2.2.2.dylib /opt/homebrew/lib/libsnappy.1.1.9.dylib /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk/usr/lib/libz.tbd /Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/usr/lib/libbz2.tbd /opt/homebrew/lib/liblz4.dylib /opt/homebrew/lib/libzstd.dylib
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -mmacosx-version-min=12.0
   LINK_LIBRARIES = -Wl,-rpath,/opt/homebrew/lib  /opt/homebrew/lib/librocksdb.a  /opt/homebrew/lib/libgflags.2.2.2.dylib  /opt/homebrew/lib/libsnappy.1.1.9.dylib  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk/usr/lib/libz.tbd  /Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/usr/lib/libbz2.tbd  /opt/homebrew/lib/liblz4.dylib  /opt/homebrew/lib/libzstd.dylib
   OBJECT_DIR = CMakeFiles/rocksdb_uvm_support.dir

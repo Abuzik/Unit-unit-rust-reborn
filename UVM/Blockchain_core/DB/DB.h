@@ -9,13 +9,17 @@
 #include "rocksdb/db.h"
 #include "rocksdb/slice.h"
 #include "rocksdb/options.h"
+#include "rocksdb/env.h"
+#include "rocksdb/merge_operator.h"
 #include "rocksdb/utilities/transaction.h"
+#include "rocksdb/compaction_filter.h"
 #include "rocksdb/utilities/optimistic_transaction_db.h"
+#include "rocksdb/table.h"
+#include "rocksdb/table_properties.h"
 #include "cassert"
 #include "vector"
 #include "iterator"
 #include "algorithm"
-#include "../../error_handling/Result.h"
 #include "../Block.h"
 #include "../Wallet/WalletAccount.h"
 #include "../Token/Token.h"
@@ -32,7 +36,7 @@
 #include <unistd.h>
 #include <thread>
 static std::string kkDBPath = "/tmp/unit_db/";
-//const char DBPath[] = "/tmp/unit_db/";
+const char DBPath[] = "/tmp/unit_db/";
 const int cpuss = (int) std::thread::hardware_concurrency();
 #endif
 
@@ -50,22 +54,17 @@ namespace unit {
                                                                              rocksdb::ColumnFamilyDescriptor("accountBalance", rocksdb::ColumnFamilyOptions()),
                                                                              rocksdb::ColumnFamilyDescriptor(ROCKSDB_NAMESPACE::kDefaultColumnFamilyName, rocksdb::ColumnFamilyOptions())};
         static bool push_block(Block block);
-        static bool validate_sender_balance(Transaction *transaction);
-        static bool push_transaction(Transaction *transaction);
         static bool push_transactions(Block *block);
         static std::optional<std::string> get_balance(std::string &address);
         static std::optional<std::string> get_block_height();
         static std::optional<std::string> get_token(std::string &token_address);
-        static void create_wallet(std::string &address);
-        static std::vector<rocksdb::ColumnFamilyHandle*> open_database(rocksdb::DB* db);
-        static std::vector<rocksdb::ColumnFamilyHandle*> open_read_only_database(rocksdb::DB* db);
+        static std::optional<std::string> find_transaction(std::string tx_hash);
         static void close_db(rocksdb::DB* db, std::vector<rocksdb::ColumnFamilyHandle*> *handles);
+        static void close_iterators_DB(rocksdb::DB* db, std::vector<rocksdb::ColumnFamilyHandle*> *handles, std::vector<rocksdb::Iterator*> *iterators);
 
     private:
         static std::vector<rocksdb::ColumnFamilyDescriptor> get_column_families();
         static rocksdb::Options get_db_options();
-        static rocksdb::Options get_blockheight_options();
-        static std::optional<std::string> create_new_token(Transaction *transaction);
         static inline void normalize_str(std::string *str) {
             str->erase(std::remove(str->begin(), str->end(), '\"'),str->end());
         }

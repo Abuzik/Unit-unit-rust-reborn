@@ -39,7 +39,7 @@ void Block::generate_hash() {
         std::ostringstream string_stream;
         string_stream << R"({"index":)" << this->index << R"({, "prev_hash":")" << this->prev_hash << R"({", "timestamp":)" << this->date << "}";
         std::string doubled_hash = sha3(sha3(string_stream.str()));
-        this->hash = doubled_hash;
+        this->hash = "0x" + doubled_hash;
         return;
     }
 
@@ -101,7 +101,7 @@ void Block::setTransactions(const std::vector<Transaction> &transactions) {
 }
 
 void Block::push_tx(Transaction &tx) {
-    this->transactions.emplace_back(tx);
+    this->transactions.emplace_back(std::move(tx));
 }
 
 Block::Block(uint64_t index, uint16_t netVersion, const std::string &prevHash,

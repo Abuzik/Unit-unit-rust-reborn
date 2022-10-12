@@ -3,6 +3,8 @@
 //
 
 #include "WalletAccount.h"
+#include "boost/json.hpp"
+#include "boost/json/value_from.hpp"
 
 const std::string &WalletAccount::getAddress() const {
     return address;
@@ -46,7 +48,10 @@ std::ostream &operator<<(std::ostream &out, const WalletAccount &walletAccount) 
         .append((i == key.size() - 1) ? "}" : "},");
     }
 
-    return out << R"({"address":")" << walletAccount.address <<  R"(", "amount":)" << walletAccount.amount <<  R"(, "tokens_balance":[)" << serialized_token_balances << "]}";
+    std::string inputs = serialize(boost::json::value_from(walletAccount.inputs));
+    std::string outputs = serialize((boost::json::value_from(walletAccount.outputs)));
+
+    return out << R"({"address":")" << walletAccount.address <<  R"(", "amount":)" << walletAccount.amount <<  R"(, "tokens_balance":[)" << serialized_token_balances << R"(], "inputs": )" << inputs << R"(, "outputs": )" << outputs << "}";
 }
 
 
@@ -64,19 +69,19 @@ bool WalletAccount::operator!=(const WalletAccount &rhs) const {
     return !(rhs == *this);
 }
 
-nlohmann::json WalletAccount::subtract_unit_balance(nlohmann::json &account, double value) {
-    // sender's balance
-    double balance_amount = account["amount"];
-    account["amount"] = balance_amount - value; // subtracting value
-    return account;
-}
-
-nlohmann::json WalletAccount::increase_unit_balance(nlohmann::json &account, double value) {
-    // sender's balance
-    double balance_amount = account["amount"];
-    account["amount"] = balance_amount + value; // subtracting value
-    return account;
-}
+//nlohmann::json WalletAccount::subtract_unit_balance(nlohmann::json &account, double value) {
+//    // sender's balance
+//    double balance_amount = account["amount"];
+//    account["amount"] = balance_amount - value; // subtracting value
+//    return account;
+//}
+//
+//nlohmann::json WalletAccount::increase_unit_balance(nlohmann::json &account, double value) {
+//    // sender's balance
+//    double balance_amount = account["amount"];
+//    account["amount"] = balance_amount + value; // subtracting value
+//    return account;
+//}
 
 WalletAccount::WalletAccount(const std::string &address, double amount,
                              const std::map<std::string, std::string> &nonDefaultBalances) : address(address),
@@ -89,6 +94,24 @@ WalletAccount::WalletAccount(const std::string &address, double amount,
 }
 
 WalletAccount::WalletAccount() {}
+
+bool WalletAccount::isEnoughTokenBalance(const boost::json::value& balance, const std::string& token_name, double value) {
+    boost::json::object balance_json = balance.as_object();
+    for(boost::json::array::iterator it = balance_json.at("tokens_balance").as_array().begin(); it != balance_json.at("tokens_balance").as_array().end(); ++it){
+        if(it->as_object().contains(token_name)) {
+            if(boost::json::value_to<double>(it->at(token_name)) < value)
+                return false;
+            return true;
+        }
+    }
+    return false;
+}
+
+bool WalletAccount::isEnoughUnitBalance(const boost::json::value& balance, double value) {
+    if(boost::json::value_to<double>(balance.at("amount")) < value)
+        return false;
+    return true;
+}
 
 //void WalletAccount::serialize_from_json(std::string &account) {
 //
